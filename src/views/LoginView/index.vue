@@ -1,8 +1,5 @@
 <template>
-  <div
-    class="styled-container"
-   
-  >
+  <div class="styled-container">
     <div class="styled-main">
       <h2>Login</h2>
       <form @submit="submit()">
@@ -37,10 +34,10 @@
 
 <script>
 import api from "../../services/api";
-import VueCookies from "vue-cookies";
-// import Vue from "vue";
+import Vue from "vue";
 import router from "../../router/index";
 
+// usar o trim
 export default {
   name: "loginScreen",
   data() {
@@ -53,18 +50,27 @@ export default {
   methods: {
     async submit() {
       this.loading = true;
+
       await api
         .post("/login", {
           email: this.username,
-          password: this.password,
+          senha: this.password,
         })
         .then((e) => {
-          
-          VueCookies.set("token", e.headers.authorization, "1h");
-          router.push("/")
-          console.log("token", e.headers.authorization);
+          Vue.$cookies.set("token", e.headers.authorization, "1h");
+          // console.log(e.headers.authorization)
+          router.push("/");
+
           this.loading = false;
-          console.log(Vue.$cookies.get('token'))
+        })
+        .catch((e) => {
+          this.loading = false;
+          // console.log(e)
+          if (e?.response?.data?.erro) {
+            window.alert(e.response.data.erro);
+            return;
+          }
+          window.alert(e?.response?.data);
         });
     },
   },

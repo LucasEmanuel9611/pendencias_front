@@ -41,6 +41,7 @@
 import Navbar from "@/components/Navbar";
 import api from "../../services/api";
 import moment from "moment";
+import Vue from 'vue'
 
 export default {
   name: "PendenciasPessoaView",
@@ -50,6 +51,7 @@ export default {
       pendencias: [],
       busca: "",
       pessoaDates: {},
+      token: Vue.$cookies.get("token"),
     };
   },
   components: {
@@ -57,13 +59,13 @@ export default {
   },
   methods: {
     async getPessoas() {
-      api.get(`/pendencias/pessoa/${this.$route.params.idPessoa}`).then((v) => {
+      api.get(`/pendencias/pessoa/${this.$route.params.idPessoa}`, { headers: { Authorization: `Bearer ${this.token}` } }).then((v) => {
         this.pendencias = v.data;
       });
     },
     async getPessoaDates() {
-      api.get(`/pessoas/${this.$route.params.idPessoa}`).then((v) => {
-        console.log("pessoaDates: ", v.data);
+      api.get(`/pessoas/${this.$route.params.idPessoa}`, { headers: { Authorization: `Bearer ${this.token}` } }).then((v) => {
+        // console.log("pessoaDates: ", v.data);
         this.pessoaDates = v.data;
       });
     },

@@ -19,10 +19,11 @@
 }
 
 .styled-card-area {
-  display: flex;
-  flex-direction: row;
+  display: grid;
+  grid-template-columns: 1fr 2fr 2fr 1fr 1fr;
+  // flex-direction: row;
   justify-content: space-between;
-  align-items: center;
+  // align-items: center;
 
   color: "#333";
   background-color: #fff;
@@ -44,6 +45,8 @@
   flex-direction: column;
   align-items: center;
   width: 100%;
+  padding-bottom: 50px;
+
 
   > div:first-child {
     margin-top: 30px;
@@ -57,13 +60,26 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  position: absolute;
+  position: fixed;
   bottom: 10px;
   right: 10px;
+  transition: 0.2s;
 
   background-color: #05c059;
+  
 
-  width: 60px;
-  height: 60px;
+  width: 55px;
+  height: 55px;
   border-radius: 50%;
+
+  &:hover {
+    width: 60px;
+    height: 60px;
+  }
+}
+
+.button-area {
+  display:  grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  background-color: red;
 }

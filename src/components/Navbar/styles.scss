@@ -47,6 +47,10 @@
     width: 50%;
     margin-right: 20px;
 
+    @media (max-width: 510px) {
+      width: 90%;
+    }
+
     button {
       border-radius: 6px 0px 0px 6px;
       border-radius: 0px 6px 6px 0px;

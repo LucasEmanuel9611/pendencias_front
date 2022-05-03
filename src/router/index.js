@@ -1,43 +1,69 @@
-import Vue from 'vue'
-import VueRouter from 'vue-router'
-import HomeView from '../views/HomeView'
-import PendenciasPessoaView from '../views/PendenciasPessoaView'
-import LoginView from '../views/LoginView'
+import Vue from "vue";
+import VueRouter from "vue-router";
+import HomeView from "../views/HomeView";
+import PendenciasPessoaView from "../views/PendenciasPessoaView";
+import LoginView from "../views/LoginView";
+import NotFound from "../views/NotFoundView"
+import CriarPessoa from "../views/CriarPessoaView"
 
-Vue.use(VueRouter)
+Vue.use(VueRouter);
 
 const routes = [
   {
     path: "/",
     name: "home",
-    beforeEnter: function (to, from, next) {
-      const token = Vue.$cookies.get('token')
+    // beforeEnter: (to, from, next) => {
+    //   const token = Vue.$cookies.get("token");
+    //   if (!token) {
+    //     next("/logar");
+    //   } else {
+    //     console.log("token in routes: ", token);
 
-      if (!token) {
-        next('/logar')
-      } else {
-        next()
-      }
-    },
+    //     next();
+    //   }
+    // },
     component: HomeView,
   },
   {
-    path: '/pessoa/:idPessoa/pendencias',
-    name: 'pendenciaspessoa',
-    component: PendenciasPessoaView
-
+    path: "/pessoa/:idPessoa/pendencias",
+    name: "pendenciasPessoa",
+    component: PendenciasPessoaView,
   },
   {
-    path: '/logar',
-    name:'login',
-    component: LoginView
-  }
-]
+    path: "/logar",
+    name: "login",
+    component: LoginView,
+  },{
+    path: "/404",
+    name: "notFound",
+    component: NotFound,
+  },
+  {
+    path: "/pessoa/criar",
+    name: "criarPessoa",
+    component: CriarPessoa,
+  },
+  {
+    path: "/:catchAll(.*)",
+    redirect: "404",
+  },
+];
 
 const router = new VueRouter({
-  mode: 'history',
+  mode: "history",
   base: process.env.BASE_URL,
-  routes
-})
+  routes,
+});
 
-export default router
+router.beforeEach((to, from, next) => {
+  const token = Vue.$cookies.get("token");
+
+  if (!token) {    
+    next('/logar')
+    return;
+  }
+
+  next();
+});
+
+export default router;
