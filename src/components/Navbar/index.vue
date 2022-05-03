@@ -23,7 +23,6 @@
 
 <script>
 // @ is an alias to /src
-import HelloWorld from "@/components/HelloWorld";
 
 
 export default {
@@ -36,9 +35,7 @@ export default {
       localBusca: ""
     }
   },
-  components: {
-    HelloWorld,
-  },
+
   watch: {
     localBusca(newValue){
       this.$emit('buscaUpdate', newValue)

@@ -3,8 +3,10 @@ import VueRouter from "vue-router";
 import HomeView from "../views/HomeView";
 import PendenciasPessoaView from "../views/PendenciasPessoaView";
 import LoginView from "../views/LoginView";
-import NotFound from "../views/NotFoundView"
-import CriarPessoa from "../views/CriarPessoaView"
+import NotFound from "../views/NotFoundView";
+import CriarPessoa from "../views/CriarPessoaView";
+import EditarPessoa from "../views/EditarPessoaView";
+import CriarPendencia from "../views/CriarPendenciaView";
 
 Vue.use(VueRouter);
 
@@ -12,28 +14,39 @@ const routes = [
   {
     path: "/",
     name: "home",
-    // beforeEnter: (to, from, next) => {
-    //   const token = Vue.$cookies.get("token");
-    //   if (!token) {
-    //     next("/logar");
-    //   } else {
-    //     console.log("token in routes: ", token);
+    beforeEnter: (to, from, next) => {
+      const token = Vue.$cookies.get("token");
+      if (!token) {
+        next("/logar");
+      } else {
+        console.log("token in routes: ", token);
 
-    //     next();
-    //   }
-    // },
+        next();
+      }
+    },
     component: HomeView,
   },
   {
     path: "/pessoa/:idPessoa/pendencias",
-    name: "pendenciasPessoa",
+    name: "editPendenciasPessoa",
     component: PendenciasPessoaView,
+  },
+  {
+    path: "/pessoa/edit/:idPessoa",
+    name: "pendenciasPessoa",
+    component: EditarPessoa,
+  },
+  {
+    path:"/pessoa/:idPessoa/pendencia/criar",
+    name: "criarPendencia",
+    component: CriarPendencia
   },
   {
     path: "/logar",
     name: "login",
     component: LoginView,
-  },{
+  },
+  {
     path: "/404",
     name: "notFound",
     component: NotFound,
@@ -55,15 +68,15 @@ const router = new VueRouter({
   routes,
 });
 
-router.beforeEach((to, from, next) => {
-  const token = Vue.$cookies.get("token");
+// router.beforeEach((to, from, next) => {
+//   const token = Vue.$cookies.get("token");
 
-  if (!token) {    
-    next('/logar')
-    return;
-  }
+//   if (!token) {
+//     next("/logar");
+//     return;
+//   }
 
-  next();
-});
+//   next();
+// });
 
 export default router;

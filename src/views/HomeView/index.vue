@@ -30,7 +30,7 @@
                 />
               </svg>
             </button>
-            <button class="btn">
+            <button class="btn" @click="goEditScreen(pessoa.id)">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 width="20"
@@ -66,8 +66,8 @@
     <div class="float-button" @click="goCreateScreen()">
       <svg
         xmlns="http://www.w3.org/2000/svg"
-        width="25"
-        height="25"
+       width="35"
+        height="35"
         fill="currentColor"
         class="bi bi-plus"
         viewBox="0 0 16 16"
@@ -82,7 +82,7 @@
 
 <script>
 // @ is an alias to /src
-import HelloWorld from "@/components/HelloWorld";
+
 import Navbar from "@/components/Navbar";
 import api from "../../services/api";
 import moment from "moment";
@@ -92,7 +92,7 @@ import Vue from "vue";
 export default {
   name: "HomeView",
   components: {
-    HelloWorld,
+
     Navbar,
   },
   data() {
@@ -123,8 +123,10 @@ export default {
     goCreateScreen() {
       router.push(`/pessoa/criar`);
     },
+    goEditScreen(id) {
+      router.push(`/pessoa/edit/${id}`);
+    },
     deletaPessoa(id) {
-      
       if (!window.confirm("deseja deletar a pessoa?")) {
         return;
       }
@@ -138,11 +140,12 @@ export default {
           console.log(e.response.data);
           // this.pessoas = v.data;
         });
+        this.getPessoas()
     },
   },
   mounted() {
     this.getPessoas();
-    console.log(api.defaults.headers.common["Authorization"]);
+    // console.log(api.defaults.headers.common["Authorization"]);
   },
 };
 </script>

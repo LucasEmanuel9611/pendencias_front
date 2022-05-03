@@ -32,7 +32,8 @@
   }
 
   .styled-card-area {
-    display: flex;
+    display: grid;
+    grid-template-columns: 1fr 1fr  1fr 1fr 1fr ;
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
@@ -47,9 +48,24 @@
 
     font-family: "Poppins", sans-serif;
     color: #333;
+
     .h3 {
       align-items: flex-start;
     }
+
+    div{
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      justify-content: space-between;
+      // background-color: red;
+
+      >p{
+        margin-top: 10px;
+      }
+    }
+
+   
   }
 }
 
@@ -109,5 +125,27 @@
     margin-top: 7px;
     color: #777;
     font-size: 18px;
+  }
+}
+
+.float-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: fixed;
+  bottom: 10px;
+  right: 10px;
+  transition: 0.2s;
+
+  background-color: #05c059;
+  
+
+  width: 55px;
+  height: 55px;
+  border-radius: 50%;
+
+  &:hover {
+    width: 60px;
+    height: 60px;
   }
 }

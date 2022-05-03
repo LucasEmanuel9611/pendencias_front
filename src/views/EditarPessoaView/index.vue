@@ -4,11 +4,11 @@
     <!-- <h1>{{busca}}</h1> -->
     <div class="form-area">
       <div class="form-group col-md-6">
-        <label for="inputEmail4">Nome</label>
+        <label>Nome</label>
         <input class="form-control" placeholder="Nome" v-model="nome" />
       </div>
       <div class="form-group col-md-6">
-        <label for="inputEmail4">Referencia</label>
+        <label>Referencia</label>
         <input
           class="form-control"
           placeholder="Alguma referencia para reconhecer a pessoa"
@@ -16,15 +16,15 @@
         />
       </div>
       <div class="form-group col-md-6">
-        <label for="inputEmail4">Pendencia</label>
+        <label>Pendencia</label>
         <input
           class="form-control"
-          placeholder="Valor total das pendencia"
+          placeholder="this."
           v-model="pendencia"
         />
       </div>
       <div class="form-group col-md-6">
-        <label for="inputPassword4">Documento</label>
+        <label >Documento</label>
         <input
           class="form-control"
           placeholder="CPF ou CPNJ"
@@ -32,8 +32,8 @@
         />
       </div>
 
-      <button class="btn btn-primary" @click="cadastrarPessoa()">
-        Cadastrar Pessoa
+      <button class="btn btn-primary" @click="editarPessoa()">
+        Editar Pessoa
       </button>
     </div>
   </div>
@@ -58,6 +58,7 @@ export default {
       referencia: "",
       pendencia: "",
       documento: "",
+      id: this.$route.params.idPessoa,
     };
   },
   methods: {
@@ -75,7 +76,22 @@ export default {
     //     }
     //   });
     // },
-    async cadastrarPessoa() {
+    async getPeopleDates() {
+      await api
+        .get(`pessoas/${this.id}`, {
+          headers: { Authorization: `Bearer ${this.token}` },
+        })
+        .then((e) => {
+          this.nome = e.data.nome
+          this.referencia = e.data.referencia
+          this.pendencia = e.data.pendencia
+          this.documento = e.data.documento
+        })
+        .catch((e) => {
+          console.log(e?.response?.data);
+        });
+    },
+    async editarPessoa() {
       if (
         this.nome.length < 1 ||
         this.pendencia < 1 ||
@@ -83,7 +99,7 @@ export default {
         this.documento < 1
       ) {
         window.alert("preencha todos os campos");
-        return
+        return;
       }
 
       const pessoaDates = {
@@ -94,17 +110,20 @@ export default {
       };
 
       await api
-        .post("/pessoas", pessoaDates, {
+        .put(`/pessoas/${this.id}`, pessoaDates, {
           headers: { Authorization: `Bearer ${this.token}` },
         })
         .then((e) => {
           router.back();
-          window.alert(`pessoa ${this.nome} criada com sucesso`);
+          window.alert(`pessoa ${this.nome} editada com sucesso`);
         })
         .catch((e) => {
           console.log(e?.response?.data);
         });
     },
+  },
+  beforeMount() {
+    this.getPeopleDates();
   },
 };
 </script>
