@@ -19,7 +19,7 @@ const routes = [
       if (!token) {
         next("/logar");
       } else {
-        console.log("token in routes: ", token);
+        // console.log("token in routes: ", token);
 
         next();
       }

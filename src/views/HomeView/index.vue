@@ -63,6 +63,8 @@
       </div>
     </div>
 
+    <button @click="getPessoas()">teste</button>
+
     <div class="float-button" @click="goCreateScreen()">
       <svg
         xmlns="http://www.w3.org/2000/svg"
@@ -92,14 +94,14 @@ import Vue from "vue";
 export default {
   name: "HomeView",
   components: {
-
     Navbar,
   },
   data() {
     return {
       pessoas: [],
       busca: "",
-      token: Vue.$cookies.get("token"),
+      // token: Vue.$cookies.get("token"),
+      token: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MywiaWF0IjoxNjUyNDcyNTcwLCJleHAiOjE2NTI0NzM0NzB9.GSzXvGbp34Kkuj1nTzEDf7RsXmmOyWyN2W1_N8IFch0",
     };
   },
   methods: {
@@ -107,9 +109,13 @@ export default {
       api
         .get("/pessoas", { headers: { Authorization: `Bearer ${this.token}` } })
         .then((v) => {
-          // console.log(v.data);
           this.pessoas = v.data;
-        });
+          console.log(`Bearer ${this.token}`);
+
+        }).catch((e) => {
+          console.log(`Bearer ${this.token}`);
+
+        })
     },
     formatarData(data) {
       return moment(data).format("L");
@@ -126,18 +132,18 @@ export default {
     goEditScreen(id) {
       router.push(`/pessoa/edit/${id}`);
     },
-    deletaPessoa(id) {
+    async deletaPessoa(id) {
       if (!window.confirm("deseja deletar a pessoa?")) {
         return;
       }
 
-      api
+      await api
         .delete(`/pessoas/${id}`, {
           headers: { Authorization: `Bearer ${this.token}` },
         })
         .then((e) => {
           window.alert(`Pessoa ${id} deletada`);
-          console.log(e.response.data);
+          console.log(e.data);
           // this.pessoas = v.data;
         });
         this.getPessoas()

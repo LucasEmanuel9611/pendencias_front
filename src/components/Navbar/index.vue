@@ -10,41 +10,44 @@
         class="form-control"
         placeholder=""
         v-model="localBusca"
-        
       />
       <div class="input-group-prepend">
-        <button class="btn btn-outline-secondary" type="button">
-          Buscar
-        </button>
+        <button class="btn btn-outline-secondary" type="button">Buscar</button>
       </div>
     </div>
   </nav>
 </template>
 
 <script>
-// @ is an alias to /src
-
+import Vue from "vue";
 
 export default {
   name: "HomeView",
   props: {
     busca: "",
   },
-  data(){
-    return{
-      localBusca: ""
-    }
+  data() {
+    return {
+      localBusca: "",
+    };
   },
+  mounted() {
+    // const refreshToken = Vue.$cookies.set("refreshToken", e.data, "1h");
 
-  watch: {
-    localBusca(newValue){
-      this.$emit('buscaUpdate', newValue)
-    }
-  }
+    // while (true) {
+    //   setTimeout(async () => {
+    //     await api
+    //       .post("/users/atualiza_token", refreshToken)
+    //       .then((e) => {
+    //         Vue.$cookies.set("token", e.headers.authorization, "1h");
+    //         Vue.$cookies.set("refreshToken", e.data, "1h");
+    //         router.push("/");
 
-  // onChange={OnChange}
-
-  // OnChange={(v) => set(v)}
+    //         this.loading = false;
+    //       }, 15000);
+    //   });
+    // }
+  },
 };
 </script>
 

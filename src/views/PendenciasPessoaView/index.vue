@@ -120,7 +120,7 @@ export default {
       router.push(`/pessoa/${this.idPessoa}/pendencia/criar`);
     },
     deletaPendencia(id) {
-      if (!window.confirm("deseja deletar a pendencia?")) {
+      if (!window.confirm("deseja deletar a pendencias?")) {
         return;
       }
 

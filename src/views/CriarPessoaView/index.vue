@@ -103,6 +103,7 @@ export default {
         })
         .catch((e) => {
           console.log(e?.response?.data);
+          console.log(this.token)
         });
     },
   },

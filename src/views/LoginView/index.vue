@@ -57,10 +57,12 @@ export default {
           senha: this.password,
         })
         .then((e) => {
-          Vue.$cookies.set("token", e.headers.authorization, "1h");
-          // console.log(e.headers.authorization)
+          // Vue.$cookies.set("token", e.headers.Authorization, "1h");
+          // Vue.$cookies.set("refreshToken", e.data, "1h");
+          Vue.$cookies.set("token", e.data, "1d");
+          // console.log(Vue.$cookies.get("token"));
+          // console.log(JSON.stringify(e))
           router.push("/");
-
           this.loading = false;
         })
         .catch((e) => {
@@ -78,3 +80,4 @@ export default {
 </script>
 
 <style src="./styles.scss" lang="scss" scoped />
+
