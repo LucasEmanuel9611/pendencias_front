@@ -5,7 +5,6 @@ import store from './store'
 import VueCookies from 'vue-cookies'
 import 'bootstrap/dist/css/bootstrap.css'
 
-
 Vue.config.productionTip = false
 Vue.use(VueCookies)
 new Vue({
