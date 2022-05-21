@@ -1,4 +1,4 @@
-<center>  <h1>LETMEASK</h1> </center>
+<center>  <h1>Pendencias Front</h1> </center>
 
 <img src="https://github.com/LucasEmanuel9611/pendencias_front/blob/master/src/assets/login.png" alt="Tela de login"/>
 <div > 
