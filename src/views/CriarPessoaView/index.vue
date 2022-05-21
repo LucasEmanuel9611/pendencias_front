@@ -1,6 +1,6 @@
 <template>
   <div class="main-container">
-    <Navbar :busca="busca" @buscaUpdate="setBusca" />
+    <Navbar :busca="busca" />
     <!-- <h1>{{busca}}</h1> -->
     <div class="form-area">
       <div class="form-group col-md-6">
@@ -54,7 +54,7 @@ export default {
     return {
       nome: "",
       busca: "",
-      token: Vue.$cookies.get("token"),
+      token: Vue.$cookies.get("accessToken"),
       referencia: "",
       pendencia: "",
       documento: "",

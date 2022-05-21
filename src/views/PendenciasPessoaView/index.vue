@@ -1,6 +1,6 @@
 <template>
   <div class="main-container">
-    <Navbar :busca="busca" @buscaUpdate="setBusca" />
+    <Navbar :busca="busca" @buscaUpdate="setBusca($event)" />
     <div class="pessoa-area">
       <div>
         <h3>{{ pessoaDates.nome }}</h3>
@@ -33,7 +33,7 @@
           <h5>R$ {{ pendencia.valor }}</h5>
           <div>
             <p>{{ formatarData(pendencia.createdAt) }}</p>
-            <button class="btn" @click=" deletaPendencia(pendencia.id)">
+            <button class="btn" @click="deletaPendencia(pendencia.id)">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 width="20"
@@ -83,7 +83,7 @@ export default {
       pendencias: [],
       busca: "",
       pessoaDates: {},
-      token: Vue.$cookies.get("token"),
+      token: Vue.$cookies.get("accessToken"),
     };
   },
   components: {
@@ -130,11 +130,11 @@ export default {
         })
         .then((e) => {
           window.alert(`Pessoa ${id} deletada`);
-          console.log(e.response.data);
+          console.log(e.data);
           // this.pessoas = v.data;
         });
-        this.getPessoas()
-    }
+      this.getPessoas();
+    },
   },
   mounted() {
     this.getPessoas();

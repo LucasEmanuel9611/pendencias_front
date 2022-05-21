@@ -57,10 +57,11 @@ export default {
           senha: this.password,
         })
         .then((e) => {
-          // Vue.$cookies.set("token", e.headers.Authorization, "1h");
-          // Vue.$cookies.set("refreshToken", e.data, "1h");
-          Vue.$cookies.set("token", e.data, "1d");
-          // console.log(Vue.$cookies.get("token"));
+          
+          Vue.$cookies.set("accessToken", e.data.accessToken, "1d");
+        
+    
+          console.log(e.data);
           // console.log(JSON.stringify(e))
           router.push("/");
           this.loading = false;

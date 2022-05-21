@@ -48,7 +48,7 @@ export default {
       descricao: "",
       valor: "",
       observacao: "",
-      token: Vue.$cookies.get("token"),
+      token: Vue.$cookies.get("accessToken"),
       idPessoa: this.$route.params.idPessoa,
       busca:""
     };

@@ -54,7 +54,7 @@ export default {
     return {
       nome: "",
       busca: "",
-      token: Vue.$cookies.get("token"),
+      token: Vue.$cookies.get("accessToken"),
       referencia: "",
       pendencia: "",
       documento: "",

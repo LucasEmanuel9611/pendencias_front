@@ -1,7 +1,7 @@
 <template>
   <div class="main-container">
-    <Navbar :busca="busca" @buscaUpdate="setBusca" />
-    <!-- <h1>{{busca}}</h1> -->
+    <Navbar :busca="busca" @buscaUpdate="setBusca($event)" />
+    
     <div class="list-area">
       <div v-for="pessoa in pessoas" :key="pessoa.id" class="styled-card">
         <div
@@ -16,7 +16,7 @@
           <p>{{ pessoa.referencia }}</p>
           <p>{{ formatarData(pessoa.createdAt) }}</p>
           <div class="button-area">
-            <button class="btn" @click="deletaPessoa(pessoa.id)">
+            <button class="btn delete-button" @click="deletaPessoa(pessoa.id)">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 width="20"
@@ -63,12 +63,10 @@
       </div>
     </div>
 
-    <button @click="getPessoas()">teste</button>
-
     <div class="float-button" @click="goCreateScreen()">
       <svg
         xmlns="http://www.w3.org/2000/svg"
-       width="35"
+        width="35"
         height="35"
         fill="currentColor"
         class="bi bi-plus"
@@ -100,22 +98,22 @@ export default {
     return {
       pessoas: [],
       busca: "",
-      // token: Vue.$cookies.get("token"),
-      token: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MywiaWF0IjoxNjUyNDcyNTcwLCJleHAiOjE2NTI0NzM0NzB9.GSzXvGbp34Kkuj1nTzEDf7RsXmmOyWyN2W1_N8IFch0",
+      token: Vue.$cookies.get("accessToken"),
     };
   },
   methods: {
+  
     async getPessoas() {
+      this.$emit("getPessoas");
       api
         .get("/pessoas", { headers: { Authorization: `Bearer ${this.token}` } })
         .then((v) => {
           this.pessoas = v.data;
-          console.log(`Bearer ${this.token}`);
-
-        }).catch((e) => {
-          console.log(`Bearer ${this.token}`);
-
         })
+        .catch(async (e) => {
+          console.log(`Bearer ${this.token}`);
+          
+        });
     },
     formatarData(data) {
       return moment(data).format("L");
@@ -146,12 +144,11 @@ export default {
           console.log(e.data);
           // this.pessoas = v.data;
         });
-        this.getPessoas()
+      this.getPessoas();
     },
   },
-  mounted() {
-    this.getPessoas();
-    // console.log(api.defaults.headers.common["Authorization"]);
+ mounted(){
+    this.getPessoas()
   },
 };
 </script>

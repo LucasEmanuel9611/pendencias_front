@@ -15,12 +15,10 @@ const routes = [
     path: "/",
     name: "home",
     beforeEnter: (to, from, next) => {
-      const token = Vue.$cookies.get("token");
+      const token = Vue.$cookies.get("accessToken");
       if (!token) {
         next("/logar");
       } else {
-        // console.log("token in routes: ", token);
-
         next();
       }
     },
@@ -68,15 +66,5 @@ const router = new VueRouter({
   routes,
 });
 
-// router.beforeEach((to, from, next) => {
-//   const token = Vue.$cookies.get("token");
-
-//   if (!token) {
-//     next("/logar");
-//     return;
-//   }
-
-//   next();
-// });
 
 export default router;
