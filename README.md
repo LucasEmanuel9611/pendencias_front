@@ -10,8 +10,9 @@
 
 Esse projeto foi desenvolvido com as seguintes tecnologias:
 
-- [Vue](https://reactjs.org)
-- [Jest](https://firebase.google.com/)
+- [Vue](https://vuejs.org/)
+- [Jest](https://jestjs.io/pt-BR/)
+- [Vue-test-Utils](https://v1.test-utils.vuejs.org/)
 - [Storybook](https://www.typescriptlang.org/)
 - [Sass](https://sass-lang.com/)
 
